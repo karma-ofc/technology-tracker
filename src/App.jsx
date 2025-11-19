@@ -8,7 +8,7 @@ import useTechnologies from './hooks/useTechnologies';
 import ProgressHeader from './components/ProgressHeader';
 
 function App() {
-  const { technologies, updateStatus, setStatus, updateNotes, progress } = useTechnologies();
+  const { technologies, setTechnologies, updateStatus, setStatus, updateNotes, progress } = useTechnologies();
 
   const [filter, setFilter] = useState('all');
 
@@ -18,15 +18,15 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const markAllCompleted = () => {
-    technologies.forEach(tech => {
-      setStatus(tech.id, 'completed');
-    });
+    setTechnologies(prevTech =>
+      prevTech.map(tech => ({ ...tech, status: 'completed' }))
+    );
   };
 
   const resetAll = () => {
-    technologies.forEach(tech => {
-      setStatus(tech.id, 'not-started');
-    });
+    setTechnologies(prevTech =>
+      prevTech.map(tech => ({ ...tech, status: 'not-started' }))
+    );
   };
 
   const randomNext = () => {

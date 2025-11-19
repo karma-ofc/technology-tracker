@@ -90,6 +90,7 @@ initialTechnologies);
 
   return {
     technologies,
+    setTechnologies,
     updateStatus,
     setStatus,
     updateNotes,
