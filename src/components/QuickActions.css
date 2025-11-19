@@ -19,15 +19,14 @@
 }
 
 .actions-buttons button {
-  padding: 10px 15px;
-  border: none;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: white;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
 }
 
 .actions-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #e9ecef;
 }
