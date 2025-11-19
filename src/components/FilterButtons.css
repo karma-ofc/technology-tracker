@@ -1,0 +1,38 @@
+/* src/components/FilterButtons.css */
+.filter-buttons {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.filter-buttons h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.buttons button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.buttons button:hover {
+  background-color: #e9ecef;
+}
