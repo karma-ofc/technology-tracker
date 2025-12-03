@@ -41,6 +41,62 @@ const initialTechnologies = [
     status: 'in-progress',
     notes: '',
     category: 'frontend'
+  },
+  {
+    id: 6,
+    title: 'React Router',
+    description: 'Навигация между страницами в React приложениях',
+    status: 'not-started',
+    notes: '',
+    category: 'frontend'
+  },
+  {
+    id: 7,
+    title: 'Express.js',
+    description: 'Фреймворк для создания веб-приложений на Node.js',
+    status: 'not-started',
+    notes: '',
+    category: 'backend'
+  },
+  {
+    id: 8,
+    title: 'MongoDB',
+    description: 'NoSQL база данных для современных приложений',
+    status: 'not-started',
+    notes: '',
+    category: 'database'
+  },
+  {
+    id: 9,
+    title: 'Git Version Control',
+    description: 'Система контроля версий для командной разработки',
+    status: 'completed',
+    notes: 'Основные команды изучены',
+    category: 'tools'
+  },
+  {
+    id: 10,
+    title: 'CSS Flexbox',
+    description: 'Современная система верстки веб-страниц',
+    status: 'not-started',
+    notes: '',
+    category: 'frontend'
+  },
+  {
+    id: 11,
+    title: 'TypeScript',
+    description: 'Типизированное надмножество JavaScript',
+    status: 'not-started',
+    notes: '',
+    category: 'language'
+  },
+  {
+    id: 12,
+    title: 'REST API',
+    description: 'Проектирование и разработка RESTful веб-сервисов',
+    status: 'not-started',
+    notes: '',
+    category: 'backend'
   }
 ];
 
@@ -80,6 +136,36 @@ initialTechnologies);
     );
   };
 
+  // Функция для добавления новой технологии
+  const addTechnology = (newTech) => {
+    const tech = {
+      id: newTech.id || Date.now(),
+      ...newTech,
+      status: 'not-started',
+      notes: ''
+    };
+    setTechnologies(prev => [...prev, tech]);
+    return tech;
+  };
+
+  // Функция для добавления нескольких технологий
+  const addMultipleTechnologies = (newTechs) => {
+    const baseId = Date.now();
+    const techsWithIds = newTechs.map((tech, index) => ({
+      ...tech,
+      id: baseId + index,
+      status: 'not-started',
+      notes: ''
+    }));
+    setTechnologies(prev => [...prev, ...techsWithIds]);
+    return techsWithIds;
+  };
+
+  // Функция для удаления технологии
+  const removeTechnology = (techId) => {
+    setTechnologies(prev => prev.filter(tech => tech.id !== techId));
+  };
+
   // Функция для расчета общего прогресса
   const calculateProgress = () => {
     if (technologies.length === 0) return 0;
@@ -94,6 +180,9 @@ initialTechnologies);
     updateStatus,
     setStatus,
     updateNotes,
+    addTechnology,
+    addMultipleTechnologies,
+    removeTechnology,
     progress: calculateProgress()
   };
 }

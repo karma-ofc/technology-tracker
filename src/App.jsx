@@ -1,95 +1,101 @@
-// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './App.css';
-import TechnologyCard from './components/TechnologyCard';
-import QuickActions from './components/QuickActions';
-import FilterButtons from './components/FilterButtons';
-import useTechnologies from './hooks/useTechnologies';
-import ProgressHeader from './components/ProgressHeader';
+import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import TechnologyList from './pages/TechnologyList';
+import TechnologyDetail from './pages/TechnologyDetail';
+import AddTechnology from './pages/AddTechnology';
+import Statistics from './pages/Statistics';
+import Settings from './pages/Settings';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import UserProfile from './pages/UserProfile';
 
 function App() {
-  const { technologies, setTechnologies, updateStatus, setStatus, updateNotes, progress } = useTechnologies();
+  // Состояние для отслеживания авторизации
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
-  const [filter, setFilter] = useState('all');
+  // Пример данных пользователей
+  const users = [
+    { id: 1, name: 'Анна' },
+    { id: 2, name: 'Иван' },
+    { id: 3, name: 'Мария' }
+  ];
 
-  const [selectedTech, setSelectedTech] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // Проверяем авторизацию при загрузке и при изменении
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const user = localStorage.getItem('username') || '';
+    setIsLoggedIn(loggedIn);
+    setUsername(user);
+  }, []);
 
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const markAllCompleted = () => {
-    setTechnologies(prevTech =>
-      prevTech.map(tech => ({ ...tech, status: 'completed' }))
-    );
+  const handleLogin = (user) => {
+    setIsLoggedIn(true);
+    setUsername(user);
   };
 
-  const resetAll = () => {
-    setTechnologies(prevTech =>
-      prevTech.map(tech => ({ ...tech, status: 'not-started' }))
-    );
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    setIsLoggedIn(false);
+    setUsername('');
   };
-
-  const randomNext = () => {
-    const notStarted = technologies.filter(tech => tech.status === 'not-started');
-    if (notStarted.length > 0) {
-      const randomTech = notStarted[Math.floor(Math.random() * notStarted.length)];
-      setSelectedTech(randomTech);
-      setShowModal(true);
-      setStatus(randomTech.id, 'in-progress');
-    }
-  };
-
-  // Фильтрация технологий
-  const filteredTechnologies = technologies.filter(tech => {
-    const matchesFilter = filter === 'all' || tech.status === filter;
-    const matchesSearch = tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          tech.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
-
-  const closeModal = () => setShowModal(false);
 
   return (
-    <div className="App">
-      <h1>🚀 Трекер изучения технологий</h1>
-      <ProgressHeader technologies={technologies} />
-      <QuickActions
-        onMarkAllCompleted={markAllCompleted}
-        onResetAll={resetAll}
-        onRandomNext={randomNext}
-        technologies={technologies}
-      />
-      <FilterButtons activeFilter={filter} onFilterChange={setFilter} />
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Поиск технологий..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <span>Найдено: {filteredTechnologies.length}</span>
+    <Router basename={process.env.NODE_ENV === 'production' ? '/technology-tracker' : ''}>
+      <div className="App">
+        <Navigation isLoggedIn={isLoggedIn} username={username} onLogout={handleLogout} users={users} />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/technologies" element={<TechnologyList />} />
+            <Route path="/technology/:techId" element={<TechnologyDetail />} />
+            <Route
+              path="/statistics"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Statistics />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/add-technology" element={<AddTechnology />} />
+            <Route
+              path="/login"
+              element={<Login onLogin={handleLogin} />}
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            {/* Динамический маршрут для пользователей */}
+            <Route
+              path="/user/:userId"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
       </div>
-      <div className="technologies-list">
-        {filteredTechnologies.map(tech => (
-          <TechnologyCard
-            key={tech.id}
-            technology={tech}
-            onStatusChange={updateStatus}
-            onNotesChange={updateNotes}
-          />
-        ))}
-      </div>
-      {showModal && selectedTech && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Выбранная технология</h2>
-            <h3>{selectedTech.title}</h3>
-            <p>{selectedTech.description}</p>
-            <button onClick={closeModal}>Закрыть</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </Router>
   );
 }
 
