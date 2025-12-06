@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './QuickActions.css';
 import Modal from './Modal';
 
-function QuickActions({ onMarkAllCompleted, onResetAll, onRandomNext, technologies }) {
+function QuickActions({ onMarkAllCompleted, onResetAll, onRandomNext, technologies, onBulkEdit, selectedCount, onImport }) {
   const [showExportModal, setShowExportModal] = useState(false);
 
   const handleExport = () => {
@@ -39,8 +39,24 @@ function QuickActions({ onMarkAllCompleted, onResetAll, onRandomNext, technologi
         <button onClick={handleExport}>
           📤 Экспорт данных
         </button>
+        <label className="import-button">
+          📥 Импорт данных
+          <input
+            type="file"
+            accept=".json"
+            onChange={onImport}
+            style={{ display: 'none' }}
+          />
+        </label>
         <button onClick={onRandomNext}>
           🎲 Случайный выбор следующей технологии
+        </button>
+        <button
+          onClick={onBulkEdit}
+          disabled={selectedCount === 0}
+          className={selectedCount === 0 ? 'disabled' : ''}
+        >
+          ✏️ Массовое редактирование ({selectedCount})
         </button>
       </div>
 

@@ -12,6 +12,8 @@ import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import UserProfile from './pages/UserProfile';
+import { ThemeProviderWrapper } from './components/ThemeProvider';
+import { NotificationProvider } from './components/NotificationProvider';
 
 function App() {
   // Состояние для отслеживания авторизации
@@ -46,56 +48,60 @@ function App() {
   };
 
   return (
-    <Router basename={process.env.NODE_ENV === 'production' ? '/technology-tracker' : ''}>
-      <div className="App">
-        <Navigation isLoggedIn={isLoggedIn} username={username} onLogout={handleLogout} users={users} />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/technologies" element={<TechnologyList />} />
-            <Route path="/technology/:techId" element={<TechnologyDetail />} />
-            <Route
-              path="/statistics"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Statistics />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Settings />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/add-technology" element={<AddTechnology />} />
-            <Route
-              path="/login"
-              element={<Login onLogin={handleLogin} />}
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            {/* Динамический маршрут для пользователей */}
-            <Route
-              path="/user/:userId"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <UserProfile />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <ThemeProviderWrapper>
+      <NotificationProvider>
+        <Router basename="/technology-tracker">
+          <div className="App">
+            <Navigation isLoggedIn={isLoggedIn} username={username} onLogout={handleLogout} users={users} />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/technologies" element={<TechnologyList />} />
+                <Route path="/technology/:techId" element={<TechnologyDetail />} />
+                <Route
+                  path="/statistics"
+                  element={
+                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                      <Statistics />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                      <Settings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/add-technology" element={<AddTechnology />} />
+                <Route
+                  path="/login"
+                  element={<Login onLogin={handleLogin} />}
+                />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                {/* Динамический маршрут для пользователей */}
+                <Route
+                  path="/user/:userId"
+                  element={
+                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                      <UserProfile />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </NotificationProvider>
+    </ThemeProviderWrapper>
   );
 }
 

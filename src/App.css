@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-color);
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -57,7 +57,7 @@ body {
 }
 
 .nav-brand a {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   text-decoration: none;
 }
 
@@ -84,13 +84,13 @@ body {
 
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: #667eea;
-  border-bottom-color: #667eea;
+  color: var(--accent-color, #667eea);
+  border-bottom-color: var(--accent-color, #667eea);
 }
 
 /* Страницы */
 .page {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--card-bg, rgba(255, 255, 255, 0.95));
   border-radius: 12px;
   padding: 30px;
   margin-bottom: 20px;
@@ -99,25 +99,25 @@ body {
 }
 
 .page h1 {
-  color: #333;
+  color: var(--text-color, #333);
   margin-bottom: 20px;
   font-size: 2em;
 }
 
 .page h2 {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   margin-bottom: 15px;
 }
 
 .page h3 {
-  color: #333;
+  color: var(--text-color, #333);
   margin-bottom: 10px;
 }
 
 .page p {
   margin-bottom: 15px;
   line-height: 1.6;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .page ul {
@@ -127,7 +127,7 @@ body {
 
 .page li {
   margin-bottom: 8px;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .page-header {
@@ -140,17 +140,17 @@ body {
 }
 
 .back-link {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   text-decoration: none;
   font-weight: 500;
   padding: 8px 16px;
-  border: 1px solid #667eea;
+  border: 1px solid var(--accent-color, #667eea);
   border-radius: 6px;
   transition: all 0.3s ease;
 }
 
 .back-link:hover {
-  background: #667eea;
+  background: var(--accent-color, #667eea);
   color: white;
 }
 
@@ -168,7 +168,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay, rgba(0, 0, 0, 0.5));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -176,7 +176,7 @@ body {
 }
 
 .modal-content {
-  background: white;
+  background: var(--modal-bg, white);
   padding: 20px;
   border-radius: 8px;
   max-width: 500px;
@@ -186,21 +186,21 @@ body {
 
 .modal-content h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .modal-content h3 {
   margin-bottom: 10px;
-  color: #667eea;
+  color: var(--accent-color, #667eea);
 }
 
 .modal-content p {
   margin-bottom: 20px;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .modal-content button {
-  background: #667eea;
+  background: var(--btn-primary-bg, #667eea);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -210,7 +210,7 @@ body {
 }
 
 .modal-content button:hover {
-  background: #5a6fd8;
+  background: var(--btn-primary-hover, #5a6fd8);
 }
 
 .search-box {
@@ -227,8 +227,8 @@ body {
   border-radius: 25px;
   font-size: 16px;
   width: 300px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+  background: var(--card-bg, rgba(255, 255, 255, 0.9));
+  color: var(--text-color, #333);
   outline: none;
 }
 
@@ -237,7 +237,7 @@ body {
 }
 
 .search-box span {
-  color: white;
+  color: var(--text-color, #333);
   font-weight: bold;
   font-size: 14px;
 }
@@ -256,7 +256,7 @@ body {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .form-group input,
@@ -264,11 +264,12 @@ body {
 .form-group select {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 6px;
   font-size: 16px;
   font-family: inherit;
-  background: white;
+  background: var(--card-bg, white);
+  color: var(--text-color, #333);
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -306,27 +307,27 @@ body {
 }
 
 .btn-primary {
-  background: #667eea;
+  background: var(--btn-primary-bg, #667eea);
   color: white;
 }
 
 .btn-primary:hover {
-  background: #5a6fd8;
+  background: var(--btn-primary-hover, #5a6fd8);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: #f8f9fa;
-  color: #333;
-  border: 1px solid #ddd;
+  background: var(--btn-secondary-bg, #6c757d);
+  color: white;
+  border: 1px solid var(--border-color, #ddd);
 }
 
 .btn-secondary:hover {
-  background: #e9ecef;
+  background: var(--btn-secondary-hover, #545b62);
 }
 
 .btn-link {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   text-decoration: none;
   font-size: 14px;
 }
@@ -350,7 +351,7 @@ body {
 }
 
 .detail-section h3 {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   margin-bottom: 15px;
   font-size: 1.2em;
 }
@@ -363,9 +364,9 @@ body {
 
 .status-buttons button {
   padding: 8px 16px;
-  border: 2px solid #ddd;
-  background: white;
-  color: #666;
+  border: 2px solid var(--border-color, #ddd);
+  background: var(--card-bg, white);
+  color: var(--text-color, #666);
   border-radius: 20px;
   cursor: pointer;
   font-size: 14px;
@@ -387,7 +388,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 40px 20px;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .empty-state p {
@@ -404,7 +405,7 @@ body {
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--card-bg, rgba(255, 255, 255, 0.9));
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -412,7 +413,7 @@ body {
 }
 
 .stat-card h3 {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   margin-bottom: 20px;
   font-size: 1.2em;
 }
@@ -430,7 +431,7 @@ body {
   transform: translate(-50%, -50%);
   font-size: 24px;
   font-weight: bold;
-  color: #667eea;
+  color: var(--accent-color, #667eea);
 }
 
 .status-stats, .category-stats, .general-stats {
@@ -453,12 +454,12 @@ body {
 
 .status-label, .category-label, .stat-label {
   font-weight: 500;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .status-count, .category-count, .stat-value {
   font-weight: bold;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 /* Настройки */
@@ -470,21 +471,21 @@ body {
 }
 
 .settings-section {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--card-bg, rgba(255, 255, 255, 0.9));
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .settings-section h3 {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   margin-bottom: 10px;
   font-size: 1.2em;
 }
 
 .settings-section p {
   margin-bottom: 15px;
-  color: #666;
+  color: var(--text-color, #666);
   line-height: 1.5;
 }
 
@@ -528,7 +529,7 @@ body {
 
 /* Импорт дорожных карт */
 .roadmap-importer {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--card-bg, rgba(255, 255, 255, 0.9));
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
@@ -536,14 +537,14 @@ body {
 }
 
 .roadmap-importer h3 {
-  color: #667eea;
+  color: var(--accent-color, #667eea);
   margin-bottom: 10px;
   font-size: 1.2em;
 }
 
 .roadmap-importer p {
   margin-bottom: 20px;
-  color: #666;
+  color: var(--text-color, #666);
   font-size: 14px;
 }
 
@@ -583,7 +584,7 @@ body {
 .import-status {
   text-align: center;
   padding: 20px;
-  color: #667eea;
+  color: var(--accent-color, #667eea);
 }
 
 .import-status .spinner {

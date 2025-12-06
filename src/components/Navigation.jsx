@@ -1,9 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import UserSelector from './UserSelector';
+import { useTheme } from './ThemeProvider';
+import { IconButton } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import './Navigation.css';
 
 function Navigation({ isLoggedIn, username, onLogout, users }) {
   const location = useLocation();
+  const { themeMode, toggleTheme } = useTheme();
 
   return (
     <nav className="main-navigation">
@@ -57,6 +62,16 @@ function Navigation({ isLoggedIn, username, onLogout, users }) {
           >
             Добавить технологию
           </Link>
+        </li>
+        <li>
+          <IconButton
+            onClick={toggleTheme}
+            color="inherit"
+            aria-label="Переключить тему"
+            sx={{ ml: 1 }}
+          >
+            {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
         </li>
 
         {isLoggedIn && (

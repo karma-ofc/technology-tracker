@@ -2,14 +2,14 @@
 .quick-actions {
   margin: 20px 0;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color, #ddd);
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg, #f9f9f9);
 }
 
 .quick-actions h3 {
   margin: 0 0 15px 0;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .actions-buttons {
@@ -20,13 +20,14 @@
 
 .actions-buttons button {
   padding: 8px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color, #ccc);
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--card-bg, white);
+  color: var(--text-color, #333);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .actions-buttons button:hover {
-  background-color: #e9ecef;
+  background-color: var(--hover-bg, #e9ecef);
 }

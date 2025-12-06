@@ -2,21 +2,23 @@ import useLocalStorage from './useLocalStorage';
 
 // Начальные данные для технологий
 const initialTechnologies = [
-  {
-    id: 1,
-    title: 'React Components',
-    description: 'Изучение базовых компонентов',
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
+{
+  id: 1,
+  title: 'React Components',
+  description: 'Изучение базовых компонентов',
+  status: 'not-started',
+  notes: '',
+  category: 'frontend',
+  deadline: ''
+},
   {
     id: 2,
     title: 'Node.js Basics',
     description: 'Основы серверного JavaScript',
     status: 'not-started',
     notes: '',
-    category: 'backend'
+    category: 'backend',
+    deadline: ''
   },
   {
     id: 3,
@@ -24,7 +26,8 @@ const initialTechnologies = [
     description: 'Освоение синтаксиса JSX и правил написания разметки',
     status: 'in-progress',
     notes: '',
-    category: 'frontend'
+    category: 'frontend',
+    deadline: ''
   },
   {
     id: 4,
@@ -32,7 +35,8 @@ const initialTechnologies = [
     description: 'Работа с состоянием компонентов через useState',
     status: 'not-started',
     notes: '',
-    category: 'frontend'
+    category: 'frontend',
+    deadline: ''
   },
   {
     id: 5,
@@ -40,7 +44,8 @@ const initialTechnologies = [
     description: 'Обработка событий в React компонентах',
     status: 'in-progress',
     notes: '',
-    category: 'frontend'
+    category: 'frontend',
+    deadline: ''
   },
   {
     id: 6,
@@ -48,7 +53,8 @@ const initialTechnologies = [
     description: 'Навигация между страницами в React приложениях',
     status: 'not-started',
     notes: '',
-    category: 'frontend'
+    category: 'frontend',
+    deadline: ''
   },
   {
     id: 7,
@@ -56,7 +62,8 @@ const initialTechnologies = [
     description: 'Фреймворк для создания веб-приложений на Node.js',
     status: 'not-started',
     notes: '',
-    category: 'backend'
+    category: 'backend',
+    deadline: ''
   },
   {
     id: 8,
@@ -64,7 +71,8 @@ const initialTechnologies = [
     description: 'NoSQL база данных для современных приложений',
     status: 'not-started',
     notes: '',
-    category: 'database'
+    category: 'database',
+    deadline: ''
   },
   {
     id: 9,
@@ -72,7 +80,8 @@ const initialTechnologies = [
     description: 'Система контроля версий для командной разработки',
     status: 'completed',
     notes: 'Основные команды изучены',
-    category: 'tools'
+    category: 'tools',
+    deadline: ''
   },
   {
     id: 10,
@@ -80,7 +89,8 @@ const initialTechnologies = [
     description: 'Современная система верстки веб-страниц',
     status: 'not-started',
     notes: '',
-    category: 'frontend'
+    category: 'frontend',
+    deadline: ''
   },
   {
     id: 11,
@@ -88,7 +98,8 @@ const initialTechnologies = [
     description: 'Типизированное надмножество JavaScript',
     status: 'not-started',
     notes: '',
-    category: 'language'
+    category: 'language',
+    deadline: ''
   },
   {
     id: 12,
@@ -96,7 +107,8 @@ const initialTechnologies = [
     description: 'Проектирование и разработка RESTful веб-сервисов',
     status: 'not-started',
     notes: '',
-    category: 'backend'
+    category: 'backend',
+    deadline: ''
   }
 ];
 
@@ -136,13 +148,23 @@ initialTechnologies);
     );
   };
 
+  // Функция для обновления срока изучения
+  const updateDeadline = (techId, newDeadline) => {
+    setTechnologies(prev =>
+      prev.map(tech =>
+        tech.id === techId ? { ...tech, deadline: newDeadline } : tech
+      )
+    );
+  };
+
   // Функция для добавления новой технологии
   const addTechnology = (newTech) => {
     const tech = {
       id: newTech.id || Date.now(),
       ...newTech,
       status: 'not-started',
-      notes: ''
+      notes: '',
+      deadline: newTech.deadline || ''
     };
     setTechnologies(prev => [...prev, tech]);
     return tech;
@@ -154,8 +176,9 @@ initialTechnologies);
     const techsWithIds = newTechs.map((tech, index) => ({
       ...tech,
       id: baseId + index,
-      status: 'not-started',
-      notes: ''
+      status: tech.status || 'not-started',
+      notes: tech.notes || '',
+      deadline: tech.deadline || ''
     }));
     setTechnologies(prev => [...prev, ...techsWithIds]);
     return techsWithIds;
@@ -180,6 +203,7 @@ initialTechnologies);
     updateStatus,
     setStatus,
     updateNotes,
+    updateDeadline,
     addTechnology,
     addMultipleTechnologies,
     removeTechnology,

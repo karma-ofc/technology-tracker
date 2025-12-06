@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay, rgba(0, 0, 0, 0.5));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
 }
 
 .modal-window {
-  background: white;
+  background: var(--modal-bg, white);
   border-radius: 8px;
   padding: 0;
   width: 90%;
@@ -20,6 +20,13 @@
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+  .modal-window {
+    width: 95%;
+    max-height: 90vh;
+  }
 }
 
 .modal-header {
@@ -33,7 +40,7 @@
 .modal-header h2 {
   margin: 0;
   font-size: 1.3rem;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .close-button {
@@ -41,12 +48,12 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #666;
+  color: var(--text-color, #666);
   padding: 5px 10px;
 }
 
 .close-button:hover {
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .modal-content {

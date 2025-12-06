@@ -1,9 +1,9 @@
 /* src/components/TechnologyCard.css */
 .technology-card {
-  border: 2px solid #ddd;
+  border: 2px solid var(--border-color, #ddd);
   border-radius: 15px;
   padding: 25px;
-  background: white;
+  background: var(--card-bg, white);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   width: 100%;
@@ -33,7 +33,7 @@
 
 .technology-card h3 {
   margin: 0 0 15px 0;
-  color: #333;
+  color: var(--text-color, #333);
   font-size: 1.4em;
 }
 
@@ -46,7 +46,7 @@
 
 .status-indicator {
   font-weight: bold;
-  color: #555;
+  color: var(--text-color, #555);
   font-size: 1.1em;
 }
 
@@ -107,4 +107,89 @@
   opacity: 1;
   background: #d32f2f;
   transform: scale(1.1);
+}
+
+.deadline-button {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.deadline-button:hover {
+  opacity: 1;
+  background: #1976d2;
+  transform: scale(1.1);
+}
+
+.deadline-indicator {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: #e3f2fd;
+  border-radius: 5px;
+  font-size: 0.9em;
+  color: #1565c0;
+  font-weight: 500;
+}
+
+.card-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.selection-checkbox {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.selection-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.selection-checkbox input:checked ~ .checkmark {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.selection-checkbox input:checked ~ .checkmark::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.selection-checkbox:hover .checkmark {
+  border-color: #007bff;
 }

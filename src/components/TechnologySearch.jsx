@@ -31,6 +31,7 @@ function TechnologySearch({ onSearch }) {
       }
 
       // Имитируем API запрос с поиском
+      console.log('Отправка запроса к API:', `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`);
       const response = await fetch(
         `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`,
         { signal: abortControllerRef.current.signal }
@@ -41,6 +42,7 @@ function TechnologySearch({ onSearch }) {
       }
 
       const data = await response.json();
+      console.log('Полученные данные от API:', data);
 
       // Преобразуем продукты в формат технологий
       const technologies = data.products?.map(product => ({
@@ -55,6 +57,7 @@ function TechnologySearch({ onSearch }) {
         thumbnail: product.thumbnail
       })) || [];
 
+      console.log('Результаты поиска API:', technologies);
       onSearch(technologies);
 
     } catch (err) {
@@ -78,10 +81,10 @@ function TechnologySearch({ onSearch }) {
       clearTimeout(searchTimeoutRef.current);
     }
 
-    // Устанавливаем новый таймер для debounce (500ms)
+    // Устанавливаем новый таймер для debounce (2 секунды)
     searchTimeoutRef.current = setTimeout(() => {
       searchTechnologies(value);
-    }, 500);
+    }, 2000);
   };
 
   // Очистка при размонтировании компонента
@@ -118,7 +121,7 @@ function TechnologySearch({ onSearch }) {
       )}
 
       <p className="search-info">
-        Поиск осуществляется по внешнему API с задержкой 500ms и отменой предыдущих запросов.
+        Поиск осуществляется по внешнему API с задержкой 2 секунды и отменой предыдущих запросов.
       </p>
     </div>
   );

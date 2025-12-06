@@ -1,6 +1,6 @@
 /* src/components/ProgressHeader.css */
 .progress-header {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--card-bg, rgba(255, 255, 255, 0.95));
   padding: 30px;
   border-radius: 15px;
   margin-bottom: 30px;
@@ -11,7 +11,7 @@
 
 .progress-header h2 {
   margin: 0 0 20px 0;
-  color: #333;
+  color: var(--text-color, #333);
   text-align: center;
   font-size: 1.8em;
 }
@@ -35,7 +35,7 @@
 
 .label {
   font-size: 0.9em;
-  color: #666;
+  color: var(--text-color, #666);
 }
 
 .progress-bar {
